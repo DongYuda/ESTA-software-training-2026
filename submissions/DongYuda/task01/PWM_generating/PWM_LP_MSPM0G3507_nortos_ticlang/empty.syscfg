@@ -1,0 +1,87 @@
+/**
+ * These arguments were used when this file was generated. They will be automatically applied on subsequent loads
+ * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
+ * @cliArgs --device "MSPM0G350X" --part "Default" --package "LQFP-64(PM)" --product "mspm0_sdk@2.09.00.00"
+ * @v2CliArgs --device "MSPM0G3507" --package "LQFP-64(PM)" --product "mspm0_sdk@2.09.00.00"
+ * @versions {"tool":"1.26.0+4407"}
+ */
+
+/**
+ * Import the modules used in this configuration.
+ */
+const ADC12  = scripting.addModule("/ti/driverlib/ADC12", {}, false);
+const ADC121 = ADC12.addInstance();
+const DAC12  = scripting.addModule("/ti/driverlib/DAC12");
+const GPIO   = scripting.addModule("/ti/driverlib/GPIO", {}, false);
+const GPIO1  = GPIO.addInstance();
+const SYSCTL = scripting.addModule("/ti/driverlib/SYSCTL");
+const TIMER  = scripting.addModule("/ti/driverlib/TIMER", {}, false);
+const TIMER1 = TIMER.addInstance();
+const UART   = scripting.addModule("/ti/driverlib/UART", {}, false);
+const UART1  = UART.addInstance();
+
+/**
+ * Write custom configuration values to the imported modules.
+ */
+ADC121.$name                      = "ADC12_0";
+ADC121.powerDownMode              = "DL_ADC12_POWER_DOWN_MODE_MANUAL";
+ADC121.sampleTime0                = "40us";
+ADC121.repeatMode                 = true;
+ADC121.enabledInterrupts          = ["DL_ADC12_INTERRUPT_MEM0_RESULT_LOADED"];
+ADC121.peripheral.adcPin0.$assign = "PA27";
+ADC121.adcPin0Config.$name        = "ti_driverlib_gpio_GPIOPinGeneric0";
+
+const Board = scripting.addModule("/ti/driverlib/Board", {}, false);
+
+DAC12.dacAmplifier       = "ON";
+DAC12.dacOutputPinEn     = true;
+DAC12.OutPinConfig.$name = "ti_driverlib_gpio_GPIOPinGeneric1";
+
+GPIO1.$name                         = "GPIO";
+GPIO1.associatedPins.create(7);
+GPIO1.associatedPins[0].$name       = "ILI9341_CS";
+GPIO1.associatedPins[0].pin.$assign = "PB3";
+GPIO1.associatedPins[1].$name       = "ILI9341_RST";
+GPIO1.associatedPins[1].pin.$assign = "PB2";
+GPIO1.associatedPins[2].$name       = "ILI9341_RS";
+GPIO1.associatedPins[2].pin.$assign = "PA17";
+GPIO1.associatedPins[3].$name       = "ILI9341_SDI";
+GPIO1.associatedPins[3].pin.$assign = "PA24";
+GPIO1.associatedPins[4].$name       = "ILI9341_SCK";
+GPIO1.associatedPins[4].pin.$assign = "PA18";
+GPIO1.associatedPins[5].$name       = "ILI9341_LED";
+GPIO1.associatedPins[5].pin.$assign = "PB18";
+GPIO1.associatedPins[6].$name       = "ILI9341_SDO";
+GPIO1.associatedPins[6].pin.$assign = "PA22";
+
+SYSCTL.forceDefaultClkConfig = true;
+SYSCTL.MFPCLKEn              = true;
+
+TIMER1.$name            = "TIMER_0";
+TIMER1.timerMode        = "PERIODIC";
+TIMER1.timerPeriod      = "10ms";
+TIMER1.timerClkPrescale = 10;
+TIMER1.interrupts       = ["ZERO"];
+
+UART1.$name                    = "UART_0";
+UART1.targetBaudRate           = 115200;
+UART1.enabledInterrupts        = ["RX"];
+UART1.peripheral.rxPin.$assign = "PA11";
+UART1.peripheral.txPin.$assign = "PA10";
+UART1.txPinConfig.$name        = "ti_driverlib_gpio_GPIOPinGeneric2";
+UART1.rxPinConfig.$name        = "ti_driverlib_gpio_GPIOPinGeneric3";
+
+/**
+ * Pinmux solution for unlocked pins/peripherals. This ensures that minor changes to the automatic solver in a future
+ * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
+ * re-solve from scratch.
+ */
+ADC121.peripheral.$suggestSolution         = "ADC0";
+Board.peripheral.$suggestSolution          = "DEBUGSS";
+Board.peripheral.swclkPin.$suggestSolution = "PA20";
+Board.peripheral.swdioPin.$suggestSolution = "PA19";
+DAC12.peripheral.$suggestSolution          = "DAC0";
+DAC12.peripheral.OutPin.$suggestSolution   = "PA15";
+SYSCTL.peripheral.$suggestSolution         = "SYSCTL";
+TIMER1.peripheral.$suggestSolution         = "TIMA0";
+UART1.peripheral.$suggestSolution          = "UART0";

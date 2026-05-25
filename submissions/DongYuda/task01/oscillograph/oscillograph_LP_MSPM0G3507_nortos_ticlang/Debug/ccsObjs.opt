@@ -1,0 +1,16 @@
+"./empty.o"
+"./ti_msp_dl_config.o"
+"./startup_mspm0g350x_ticlang.o"
+"./app_auto/app_auto.o"
+"./app_fft/app_fft.o"
+"./app_measure/app_measure.o"
+"./bsp_adc_dma/bsp_adc_dma.o"
+"./bsp_bluetooth/bsp_bluetooth.o"
+"./bsp_trigger/bsp_trigger.o"
+"./bsp_voltage_gear/bsp_voltage_gear.o"
+"./handware/font.o"
+"./handware/ili9341_driver.o"
+"./hmi_display/hmi_display.o"
+-l"./device_linker.cmd"
+-ldevice.cmd.genlibs
+-llibc.a
